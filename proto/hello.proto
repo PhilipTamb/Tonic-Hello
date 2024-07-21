@@ -1,0 +1,65 @@
+//Define request and response types
+//version of protocl buffer used
+syntax = "proto3";
+
+//package name for the buffer will be used later 
+package hello;
+
+//define our service which can be executed
+// This service will contain the actual RPC calls we will be using in our application. An RPC contains an Identifier, a Request type, and returns a Response type.
+
+/*Service definition
+
+service = "service" serviceName "{" { option | rpc | emptyStatement } "}"
+rpc = "rpc" rpcName "(" [ "stream" ] messageType ")" "returns" "(" [ "stream" ]
+messageType ")" (( "{" { option | emptyStatement } "}" ) | ";" )
+
+Example:
+service SearchService {
+  rpc Search (SearchRequest) returns (SearchResponse);
+}
+*/
+
+service Say{ // function which can be called
+    rpc SendGreeting(SayRequest) returns (SayResponse);
+}
+
+/*
+we have to define those types we used above in our SayHello RPC method.
+ RPC types are defined as messages which contain typed fields.
+*/
+
+/*
+Message definition
+
+A message consists of a message name and a message body. The message body can have fields, nested enum definitions, nested message definitions, extend statements, extensions, groups, options, oneofs, map fields, and reserved statements. A message cannot contain two fields with the same name in the same message schema.
+
+message = "message" messageName messageBody
+messageBody = "{" { field | enum | message | extend | extensions | group |
+option | oneof | mapField | reserved | emptyStatement } "}"
+Example:
+
+message Outer {
+  option (my_option).a = true;
+  message Inner {   // Level 2
+    required int64 ival = 1;
+  }
+  map<int32, string> my_map = 2;
+  extensions 20 to 30;
+}
+*/
+
+// argument
+message SayRequest{ // data type and position of data
+    // Request message contains the name to be greeted
+    string name = 1;
+}
+
+// return value
+message SayResponse{ // data type and position of data
+    // Reply contains the greeting message
+    string message = 1;
+}
+
+// this would include code generated for package hello from .proto file
+// tonic::include_proto!("hello");

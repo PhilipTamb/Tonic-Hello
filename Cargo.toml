@@ -1,0 +1,27 @@
+[package]
+name = "grpc-app"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tonic = "0.12.1"
+#protobuf = "3.5.0"
+prost = "0.13.1"
+#httpbis = { git = "https://github.com/stepancheg/rust-http2" }
+#grpc ="*"
+#grpc-protobuf = "*"
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
+
+[build-dependencies]
+#protoc-rust-grpc = "0.8"
+# include tonic-build as a useful way to incorporate the generation of our client and server gRPC code into the build process of our application.
+tonic-build = "0.12"   
+
+[[bin]]
+name = "client"
+path = "src/client.rs"
+
+
+[[bin]]
+name = "server"
+path = "src/server.rs"
